@@ -5,6 +5,9 @@ const Logger = require('./Logger');
 const config = require('../config');
 const Bot = require('./Bot');
 
+const {
+	startRecord
+} = require('./Transfmt');
 const logger = new Logger('Room');
 
 /**
@@ -577,6 +580,8 @@ class Room extends EventEmitter
 		{
 			this._audioLevelObserver.addProducer({ producerId: producer.id })
 				.catch(() => {});
+		} else {
+			startRecord(this._mediasoupRouter, broadcaster, producer);
 		}
 
 		return { id: producer.id };
@@ -1105,6 +1110,8 @@ class Room extends EventEmitter
 				{
 					this._audioLevelObserver.addProducer({ producerId: producer.id })
 						.catch(() => {});
+				} else {
+					startRecord(this._mediasoupRouter, peer, producer);
 				}
 
 				break;
