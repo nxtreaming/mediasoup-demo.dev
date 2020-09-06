@@ -199,12 +199,13 @@ echo ">>> running ffmpeg..."
 #	"[select=a:f=rtp:ssrc=${AUDIO_SSRC}:payload_type=${AUDIO_PT}]rtp://${audioTransportIp}:${audioTransportPort}?rtcpport=${audioTransportRtcpPort}|[select=v:f=rtp:ssrc=${VIDEO_SSRC}:payload_type=${VIDEO_PT}]rtp://${videoTransportIp}:${videoTransportPort}?rtcpport=${videoTransportRtcpPort}"
 
 ffmpeg \
+	-re \
 	-v info \
 	-stream_loop -1 \
 	-i ${MEDIA_FILE} \
 	-map 0:a:0 \
 	-acodec libopus -ab 128k -ac 2 -ar 48000 \
 	-map 0:v:0 \
-	-pix_fmt yuv420p -s 320x240 -c:v libx264 -profile:v main -x264opts 'scenecut=0:nal-hrd=cbr:force-cfr=1:bframes=0' -b:v 1000k -minrate:v 1000K -maxrate:v 1000K -bufsize:v 600K\
+	-pix_fmt yuv420p -s 640x480 -c:v libx264 -profile:v main -x264opts 'scenecut=0:nal-hrd=cbr:force-cfr=1:bframes=0' -b:v 1000k -minrate:v 1000K -maxrate:v 1000K -bufsize:v 600K\
 	-f tee \
 	"[select=a:f=rtp:ssrc=${AUDIO_SSRC}:payload_type=${AUDIO_PT}]rtp://${audioTransportIp}:${audioTransportPort}?rtcpport=${audioTransportRtcpPort}|[select=v:f=rtp:ssrc=${VIDEO_SSRC}:payload_type=${VIDEO_PT}]rtp://${videoTransportIp}:${videoTransportPort}?rtcpport=${videoTransportRtcpPort}"

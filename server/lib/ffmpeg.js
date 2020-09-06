@@ -30,7 +30,7 @@ module.exports = class FFmpeg {
     console.log('createProcess() [_commandArgs:%s]', this._commandArgs);
 
     // disable ffmpeg message: obsrtc.com-1
-    if (false && this._process.stderr) {
+    if (true && this._process.stderr) {
       this._process.stderr.setEncoding('utf-8');
 
       this._process.stderr.on('data', data =>
@@ -39,7 +39,7 @@ module.exports = class FFmpeg {
     }
 
     // disable ffmpeg message: obsrtc.com-2
-    if (false && this._process.stdout) {
+    if (true && this._process.stdout) {
       this._process.stdout.setEncoding('utf-8');
 
       this._process.stdout.on('data', data => 
@@ -77,7 +77,7 @@ module.exports = class FFmpeg {
   get _commandArgs () {
     let commandArgs = [
       '-loglevel',
-      'debug',
+      'info',
       '-protocol_whitelist',
       'pipe,udp,rtp',
       '-fflags',
@@ -140,7 +140,8 @@ module.exports = class FFmpeg {
 
   get _audioArgs () {
     return [
-      '-an'
+      '-acodec',
+      'aac'
     ];
   }
 }

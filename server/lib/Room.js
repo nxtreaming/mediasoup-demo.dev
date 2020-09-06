@@ -580,7 +580,21 @@ class Room extends EventEmitter
 		{
 			this._audioLevelObserver.addProducer({ producerId: producer.id })
 				.catch(() => {});
-		} else {
+		}
+
+		let hasVideo = false;
+		let hasAudio = false;
+		for (const producer of broadcaster.data.producers.values())
+		{
+			if (producer.kind === 'audio') {
+				hasAudio = true;
+			} else if (producer.kind === 'video') {
+				hasVideo = true;
+			}
+		}
+
+		if(hasVideo === true && hasAudio === true)
+		{
 			startRecord(this._mediasoupRouter, broadcaster, producer);
 		}
 
@@ -1110,8 +1124,22 @@ class Room extends EventEmitter
 				{
 					this._audioLevelObserver.addProducer({ producerId: producer.id })
 						.catch(() => {});
-				} else {
-					startRecord(this._mediasoupRouter, peer, producer);
+				}
+
+				let hasVideo = false;
+				let hasAudio = false;
+				for (const producer of peer.data.producers.values())
+				{
+				       if (producer.kind === 'audio') {
+				               hasAudio = true;
+				       } else if (producer.kind === 'video') {
+				               hasVideo = true;
+				       }
+				}
+
+				if(hasVideo === true && hasAudio === true)
+				{
+				       startRecord(this._mediasoupRouter, peer, producer);
 				}
 
 				break;

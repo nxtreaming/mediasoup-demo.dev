@@ -72,9 +72,9 @@ const publishRtpStream = async (router, peer, producer) => {
   module.exports.startRecord = async (router, peer, producer) => {
     let recordInfo = {};
   
-    //for (const producer of peer.data.producers.values()) {
+    for (const producer of peer.data.producers.values()) {
       recordInfo[producer.kind] = await publishRtpStream(router, peer, producer);
-    //}
+    }
   
     // recordInfo.fileName = Date.now().toString();
   
