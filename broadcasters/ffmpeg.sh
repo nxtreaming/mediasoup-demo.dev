@@ -90,7 +90,7 @@ ${HTTPIE_COMMAND} \
 	POST ${SERVER_URL}/rooms/${ROOM_ID}/broadcasters \
 	id="${BROADCASTER_ID}" \
 	displayName="Broadcaster" \
-	device:='{"name": "FFmpeg"}' \
+	device:='{"name": "krtc001"}' \
 	> /dev/null
 
 #
