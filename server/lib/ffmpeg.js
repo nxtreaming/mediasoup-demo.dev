@@ -29,8 +29,7 @@ module.exports = class FFmpeg {
     this._process = child_process.spawn('ffmpeg', this._commandArgs);
     console.log('createProcess() [_commandArgs:%s]', this._commandArgs);
 
-    // disable ffmpeg message: obsrtc.com-1
-    if (true && this._process.stderr) {
+    if (this._process.stderr) {
       this._process.stderr.setEncoding('utf-8');
 
       this._process.stderr.on('data', data =>
@@ -38,8 +37,7 @@ module.exports = class FFmpeg {
       );
     }
 
-    // disable ffmpeg message: obsrtc.com-2
-    if (true && this._process.stdout) {
+    if (this._process.stdout) {
       this._process.stdout.setEncoding('utf-8');
 
       this._process.stdout.on('data', data => 
@@ -97,7 +95,6 @@ module.exports = class FFmpeg {
       '-f',
       'flv',
       //'rtmp://39.106.175.239/live/' + this._id
-      //'rtmp://49.233.136.247/live/' + this._id
       'rtmp://ktla.fakecn.com/relay/' + this._id
     ]);
     console.log('!!!!!!!!!!!!!!!!!!! => ', this._id);
