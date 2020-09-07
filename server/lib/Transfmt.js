@@ -27,8 +27,6 @@ const publishRtpStream = async (router, peer, producer) => {
     // Connect the mediasoup RTP transport to the ports used by GStreamer
     await rtpTransport.connect({
       //ip: '127.0.0.1',
-      //ip: '192.168.43.121',
-      //ip: '192.168.8.140',
       ip: '154.13.28.95',
       //ip: '39.106.175.239',
       port: remoteRtpPort,
