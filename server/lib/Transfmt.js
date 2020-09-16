@@ -5,6 +5,8 @@ const {
   releasePort
 } = require('./port');
 
+let g_rtc_published = 0;
+
 const publishRtpStream = async (router, peer, producer) => {
     console.log('publishRtpStream()');
   
@@ -22,6 +24,15 @@ const publishRtpStream = async (router, peer, producer) => {
     let remoteRtpPort = await getPort();
     //remoteRtpPort = 20999;
     //remoteRtpPort = 24115;
+
+    // Just for debug: only support one broadcaster, obsrtc.com
+    if (peer.id === "obsrtc001" || g_rtc_published < 2) {
+        if (producer.kind === "audio")
+            remoteRtpPort = 24113;
+        else if (producer.kind === "video")
+            remoteRtpPort = 24115;
+        g_rtc_published += 1;
+    }
     console.log('remoteRtpPort = ', remoteRtpPort);
     
     // Connect the mediasoup RTP transport to the ports used by GStreamer
@@ -76,7 +87,7 @@ const publishRtpStream = async (router, peer, producer) => {
   
     // recordInfo.fileName = Date.now().toString();
   
-    peer.process = new FFmpeg(peer.id, recordInfo);
+    //peer.process = new FFmpeg(peer.id, recordInfo);
   
     setTimeout(async () => {
       for (const consumer of peer.data.consumers.values()) {

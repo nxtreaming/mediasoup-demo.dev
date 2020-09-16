@@ -62,7 +62,8 @@ fi
 
 set -e
 
-BROADCASTER_ID=$(LC_CTYPE=C tr -dc A-Za-z0-9 < /dev/urandom | fold -w ${1:-32} | head -n 1)
+# BROADCASTER_ID=$(LC_CTYPE=C tr -dc A-Za-z0-9 < /dev/urandom | fold -w ${1:-32} | head -n 1)
+BROADCASTER_ID="obsrtc001"
 HTTPIE_COMMAND="http --verify=no --check-status"
 AUDIO_SSRC=1111
 AUDIO_PT=100
